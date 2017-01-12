@@ -17,7 +17,7 @@ categories: jekyll update
 
 + A woman without her man is nothing.
 
-+ Lets eat grandma.
++ Let's eat, grandma.
 
 <br>
 
