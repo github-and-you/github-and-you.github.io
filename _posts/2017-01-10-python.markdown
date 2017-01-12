@@ -1,0 +1,285 @@
+---
+layout: post
+title:  "Common Python Errors"
+date:   2017-01-10 11:11:11 -0500
+categories: jekyll update
+---
+
+-----
+
+<br>
+
+## Bug 1
+
+{% highlight python %}
+if foo == 42
+    print('Hello!')
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug 2
+
+{% highlight python %}
+someVar = 42
+
+def myFunction():
+    print(someVar)
+    someVar = 100
+
+myFunction()
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug 3
+
+```
+myName = 'Jim'
+print('My name is ' + myName + . How are you?')
+```
+
+<br>
+
+-----
+
+<br>
+
+## Bug 4
+
+{% highlight python %}
+foo = range(10)
+foo[4] = -1
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug 5
+
+{% highlight python %}
+foo = ['cat', 'dog', 'mouse']
+for i in range(foo):
+    print(foo[i])
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug 5
+
+{% highlight python %}
+foo = ['cat', 'dog', 'mouse']
+print(foo[6])
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug 6
+
+{% highlight python %}
+foo = Round(4.2)
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug 7
+
+{% highlight python %}
+foo = 0
+foo++
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug 8
+
+{% highlight python %}
+print('Hello!)
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug 9
+
+{% highlight python %}
+numEggs = 12
+print('I have ' + numEggs + ' eggs.')
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug 10
+
+{% highlight python %}
+foo = 'I have a pet cat.'
+foo[13] = 'r'
+print(foo)
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug 11
+
+```
+class = 'algebra'
+```
+
+<br>
+
+-----
+
+<br>
+
+## Bug 12
+
+{% highlight python %}
+if foo == 42:
+print('Hello!')
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug 13
+
+{% highlight python %}
+foo = 0
+foo += 42
+eggs += 42
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug 14
+
+{% highlight python %}
+if foo == 42:
+    print('Hello!')
+  print('O hai!')
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug 15
+
+{% highlight python %}
+foo = ruond(4.2)
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug 16
+
+{% highlight python %}
+foo = 'THIS IS IN LOWERCASE.'
+foo = foo.lowerr()
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug 17
+
+{% highlight python %}
+class Foo():
+    def myMethod():
+        print('Hello!')
+
+a = Foo()
+a.myMethod()
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug 18
+
+```
+print(Hello!')
+```
+
+<br>
+
+-----
+
+<br>
+
+## Bug 19
+
+{% highlight python %}
+foo = {'cat': 'Zophie', 'dog': 'Basil', 'mouse': 'Whiskers'}
+print('The name of my pet zebra is ' + foo['zebra'])
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug 20
+
+{% highlight python %}
+foobar = 'Jim'
+print('My name is ' + fooba)
+{% endhighlight %}
