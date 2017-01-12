@@ -1,0 +1,395 @@
+---
+layout: post
+title:  "C++ Bugs from Popular Libraries"
+date:   2017-01-02 11:11:11 -0500
+categories: jekyll update
+---
+
+-----
+
+<br>
+
+## Bug 1
+
+{% highlight c++ %}
+PassRefPtr<Structure> Structure::
+  getterSetterTransition(Structure* structure)
+{
+  ...
+  RefPtr<Structure> transition =
+    create(structure->storedPrototype(),
+      structure->typeInfo());
+  transition->m_propertyStorageCapacity =
+    structure->m_propertyStorageCapacity;
+  transition->m_hasGetterSetterProperties =
+    transition->m_hasGetterSetterProperties;
+  transition->m_hasNonEnumerableProperties =
+    structure->m_hasNonEnumerableProperties;
+  transition->m_specificFunctionThrashCount =
+    structure->m_specificFunctionThrashCount;
+  ...
+}
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug 2
+
+{% highlight c++ %}
+static int asn1_cb(const char *elem, int len,
+  void *bitstr)
+{
+  ....
+  case ASN1_GEN_FLAG_FORMAT:
+  if (!strncmp(vstart, "ASCII", 5))
+    arg->format = ASN1_GEN_FORMAT_ASCII;
+  else if (!strncmp(vstart, "UTF8", 4))
+    arg->format = ASN1_GEN_FORMAT_UTF8;
+  else if (!strncmp(vstart, "HEX", 3))
+    arg->format = ASN1_GEN_FORMAT_HEX;
+  else if (!strncmp(vstart, "BITLIST", 3))
+    arg->format = ASN1_GEN_FORMAT_BITLIST;
+  else
+  ....
+}
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug 3
+
+{% highlight c++ %}
+bool QConfFileSettingsPrivate::readIniLine(....)
+{
+  int dataLen = data.length();
+  ....
+  if (i == lineStart + 1) {
+    char ch;
+    while (i < dataLen &&
+           ((ch = data.at(i) != '\n') && ch != '\r'))
+      ++i;
+    lineStart = i;
+  } else if (!inQuotes) {
+  ....
+}
+
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug 4
+
+{% highlight c++ %}
+static ShiftResult shift(....)
+{
+  ...
+  qreal l = (orig->x1 - orig->x2)*(orig->x1 - orig->x2) +
+            (orig->y1 - orig->y2)*(orig->y1 - orig->y1) *
+            (orig->x3 - orig->x4)*(orig->x3 - orig->x4) +
+            (orig->y3 - orig->y4)*(orig->y3 - orig->y4);
+  qreal dot = (orig->x1 - orig->x2)*(orig->x3 - orig->x4) +
+              (orig->y1 - orig->y2)*(orig->y3 - orig->y4);
+  ...
+}
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug 5
+
+{% highlight c++ %}
+bool Matrix4::operator==(const Matrix4& other) const {
+    // If the bit patterns are identical, they must be
+    // the same matrix. If not, they *might* still have
+    // equal elements due to floating point weirdness.
+    if (memcmp(this, &other, sizeof(Matrix4) == 0)) {
+        return true;
+    }
+
+    for (int r = 0; r < 4; ++r) {
+        for (int c = 0; c < 4; ++c) {
+            if (elt[r][c] != other.elt[r][c]) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug 6
+
+{% highlight c++ %}
+QQuickJSContext2DPrototype::method_getImageData(....)
+{
+  ....
+  qreal x = ctx->callData->args[0].toNumber();
+  qreal y = ctx->callData->args[1].toNumber();
+  qreal w = ctx->callData->args[2].toNumber();
+  qreal h = ctx->callData->args[3].toNumber();
+  if (!qIsFinite(x) || !qIsFinite(y) ||
+      !qIsFinite(w) || !qIsFinite(w))
+    V4THROW_DOM(DOMEXCEPTION_NOT_SUPPORTED_ERR,
+                "getImageData(): Invalid arguments");
+  ....
+}
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug 7
+
+{% highlight c++ %}
+static int rr_cmp(uchar *a,uchar *b)
+{
+  if (a[0] != b[0])
+    return (int) a[0] - (int) b[0];
+  if (a[1] != b[1])
+    return (int) a[1] - (int) b[1];
+  if (a[2] != b[2])
+    return (int) a[2] - (int) b[2];
+  if (a[3] != b[3])
+    return (int) a[3] - (int) b[3];
+  if (a[4] != b[4])
+    return (int) a[4] - (int) b[4];
+  if (a[5] != b[5])
+    return (int) a[1] - (int) b[5];
+  if (a[6] != b[6])
+    return (int) a[6] - (int) b[6];
+  return (int) a[7] - (int) b[7];
+}
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug 8
+
+{% highlight c++ %}
+void TSAPI LoadFavoritesAndRecent()
+{
+  RCENTRY *recentEntries, rceTemp;
+  DWORD   dwRecent;
+  int     iIndex = 0, i, j;
+  HANDLE hContact = (HANDLE)CallService(
+                      MS_DB_CONTACT_FINDFIRST, 0, 0);
+  recentEntries = new RCENTRY[nen_options.wMaxRecent + 1];
+  ....
+  if (iIndex == 0) {
+    free(recentEntries);
+    return;
+  }
+
+  for (i = 0; i < iIndex - 1; i++) {
+  ....
+  }
+}
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug 9
+
+{% highlight c++ %}
+void ExprParser::replaceBinaryOperands()
+{
+  char t1 = getOperandType(1);
+  char t2 = getOperandType();
+
+  popOperand();
+  popOperand();
+
+  if (t1 == t2)
+    mOperands.push_back (t1);
+  else if (t1 == 'f' || t2 == 'f')
+    mOperands.push_back ('f');
+  else
+    std::logic_error
+      ("failed to determine result operand type");
+}
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug L0
+
+{% highlight c++ %}
+void GetCacheParameters(ContextType type,
+                        FilePath* cache_path,
+                        int* max_size) {
+  ...
+  *max_size = 0;
+  if (!base::StringToInt(value, max_size)) {
+    *max_size = 0;
+  } else if (max_size < 0) {
+    *max_size = 0;
+  }
+  ...
+}
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug |1
+
+{% highlight c++ %}
+int SSL_shutdown(SSL *s)
+{
+  if (s->handshake_func == 0)
+  {
+    SSLerr(SSL_F_SSL_SHUTDOWN, SSL_R_UNINITIALIZED);
+    return -1;
+  }
+
+  if ((s != NULL) && !SSL_in_init(s))
+    return(s->method->ssl_shutdown(s));
+  else
+    return(1);
+  ....
+}
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug !2
+
+{% highlight c++ %}
+void Frustum(....)
+{
+  float delta_x = right - left;
+  float delta_y = top - bottom;
+  float delta_z = far_z - near_z;
+  if ((near_z <= 0.0f) || (far_z <= 0.0f) ||
+      (delta_z <= 0.0f) || (delta_y <= 0.0f) ||
+      (delta_y <= 0.0f))
+    return;
+  ....
+}
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug 13
+
+{% highlight c++ %}
+CV_IMPL IplImage * icvCreateIsometricImage(....)
+{
+....
+if (!dst || dst->depth != desired_depth ||
+    dst->nChannels != desired_num_channels ||
+    dst_size.width != src_size.width ||
+    dst_size.height != dst_size.height)
+   ....
+}
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug 14
+
+{% highlight c++ %}
+template<typename Scalar> EIGEN_DEVICE_FUNC
+inline bool isApprox(const Scalar& x, const Scalar& y,
+  typename NumTraits<Scalar>::Real precision =
+    NumTraits<Scalar>::dummy_precision())
+
+template< .... >
+void evalSolverSugarFunction(....)
+{
+  ....
+  const Scalar psPrec = sqrt(test_precision<Scalar>());
+  ....
+  if (internal::isApprox(
+        calc_realRoots[i], real_roots[j] ), psPrec)
+  {
+    found = true;
+  }
+  ....
+}
+{% endhighlight %}
+
+<br>
+
+-----
+
+<br>
+
+## Bug 5
+
+{% highlight c++ %}
+class ALIGN16 FourVectors
+{
+public:
+  fltx4 x, y, z;
+  ....
+};
+
+FourVectors BackgroundColor;
+
+void RayTracingEnvironment::RenderScene(....)
+{
+  ....
+  intens.x = OrSIMD(AndSIMD(BackgroundColor.x,no_hit_mask),
+                  AndNotSIMD(no_hit_mask,intens.x));
+  intens.y = OrSIMD(AndSIMD(BackgroundColor.y,no_hit_mask),
+                  AndNotSIMD(no_hit_mask,intens.y));
+  intens.z = OrSIMD(AndSIMD(BackgroundColor.y,no_hit_mask),
+                  AndNotSIMD(no_hit_mask,intens.z));
+
+  ....
+}
+{% endhighlight %}
