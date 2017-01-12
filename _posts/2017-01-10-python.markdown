@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Common Python Errors"
+title:  "Common Python Bugs"
 date:   2017-01-10 11:11:11 -0500
 categories: jekyll update
 ---
