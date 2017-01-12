@@ -31,6 +31,6 @@ categories: jekyll update
 
 + Man bacon makes anything taste good. Even salad.
 
-+ Well done, steak.
++ Well done steak.
 
 + Pretty safe room in apartment with doorman.
