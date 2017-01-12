@@ -12,7 +12,7 @@ categories: jekyll update
 ## Bug 1
 
 {% highlight python %}
-if foo == 42
+if foo == 42:
     print('Hello!')
 {% endhighlight %}
 
